@@ -1,6 +1,7 @@
 package com.fragile.sprintBootTutorial.controllers;
 
 import com.fragile.sprintBootTutorial.entities.Department;
+import com.fragile.sprintBootTutorial.error.DepartmentNotFoundException;
 import com.fragile.sprintBootTutorial.services.DepartmentService;
 import jakarta.persistence.PostUpdate;
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class DepartmentController {
 
 
     @GetMapping("/department/{id}")
-    public Department getDepartmentById(@PathVariable("id") Long departmentId) {
+    public Department getDepartmentById(@PathVariable("id") Long departmentId) throws DepartmentNotFoundException {
         LOGGER.info("The getDepartmentById from departmentController");
         return departmentService.getDepartmentById(departmentId);
     }

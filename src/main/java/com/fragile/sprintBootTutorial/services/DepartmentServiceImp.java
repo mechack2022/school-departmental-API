@@ -1,12 +1,14 @@
 package com.fragile.sprintBootTutorial.services;
 
 import com.fragile.sprintBootTutorial.entities.Department;
+import com.fragile.sprintBootTutorial.error.DepartmentNotFoundException;
 import com.fragile.sprintBootTutorial.respository.DepartmentRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImp implements DepartmentService {
@@ -25,8 +27,12 @@ public class DepartmentServiceImp implements DepartmentService {
     }
 
     @Override
-    public Department getDepartmentById(long deparmementId) {
-        return departmentRespository.findById(deparmementId).get();
+    public Department getDepartmentById(long deparmementId) throws DepartmentNotFoundException {
+       Optional<Department> department = departmentRespository.findById(deparmementId);
+       if(!department.isPresent()) {
+           throw new DepartmentNotFoundException("department not available");
+       }
+        return department.get();
     }
 
     @Override
@@ -39,6 +45,7 @@ public class DepartmentServiceImp implements DepartmentService {
         Department deptDB = departmentRespository.findById(departmentId).get();
 
         if (Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(department.getDepartmentName())) {
+
             deptDB.setDepartmentName(department.getDepartmentName());
         }
 
