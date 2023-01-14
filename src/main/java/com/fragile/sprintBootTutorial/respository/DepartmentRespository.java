@@ -6,5 +6,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DepartmentRespository extends JpaRepository<Department, Long> {
-     Department getDepartmentByName(String departmentName);
-}
+     Department findByDepartmentName(String departmentName);
+
+     //ignore case check
+     Department findByDepartmentNameIgnoreCase(String departmentName);
+
+
+     }
+

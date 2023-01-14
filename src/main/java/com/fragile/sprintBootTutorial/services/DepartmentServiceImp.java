@@ -53,9 +53,12 @@ public class DepartmentServiceImp implements DepartmentService {
         return deptDB;
     }
 
-    public Department getDepartmentByName(String department){
-       return departmentRespository.getDepartmentByName(department);
+    @Override
+    public Department fetchDepartmentByName(String departmentName) {
+        return departmentRespository.findByDepartmentNameIgnoreCase(departmentName);
     }
+
+
 
 //
 }
